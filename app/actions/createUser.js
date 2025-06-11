@@ -34,7 +34,7 @@ async function createUser(previousState, formData){
     } catch (error) {
         console.log('sign up that bai', error);
         return {
-            error: 'That baai',
+            error: 'Failed!',
         }
     }
 }

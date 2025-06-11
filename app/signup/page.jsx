@@ -11,9 +11,10 @@ const SignUpPage = () => {
   const router = useRouter();
   useEffect(()=> {
     if(state.error) toast.error(state.error);
-    if(state.success) toast.error('Đăng ký tài khoản thành công!');
-    router.push('/signin')
-  }, [])
+    if(state.success) {
+    toast.error('Đăng ký tài khoản thành công!')
+    router.push('/signin')}
+  }, [state])
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
