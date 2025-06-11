@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { FaSignOutAlt } from "react-icons/fa";
-import Link from "next/link"
+import Link from "next/link";
+import Heading from '@/components/Heading'
 
 const ServiceCard = ({ room }) => {
   const bucketID = process.env.NEXT_PUBLIC_APPWRITE_SERVICE_STORAGE_BUCKET;

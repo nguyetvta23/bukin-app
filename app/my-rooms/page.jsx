@@ -7,12 +7,11 @@ const MyServices = async () => {
   return (
     <>
     <Heading title="My rooms" />
-    <div className="bg-white p-8 overflow-auto mt-16 h-screen">
       <div className="relative overflow-auto">
         <div className="overflow-x-auto rounded-lg">
           <table className="min-w-full bg-white border mb-20">
             <thead>
-              <tr className="bg-gray-800 text-center text-xs md:text-sm font-thin text-white">
+              <tr className="bg-secondary text-center text-xs md:text-sm font-thin text-white">
                 <th className="p-0">
                   <span className="block py-2 px-3 border-r border-gray-300">
                     Service Name
@@ -43,7 +42,6 @@ const MyServices = async () => {
           </table>
         </div>
       </div>
-    </div>
     </>
   );
 };

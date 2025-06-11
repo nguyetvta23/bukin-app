@@ -15,7 +15,7 @@ async function bookService(previousState, formData) {
     const cookieStore = await cookies();
     const sessionCookie = cookieStore.get('appwrite-session');
     if (!sessionCookie) {
-        redirect('/login')
+        redirect('/signin')
     }
     try {
         const { databases } = await createSessionClient(

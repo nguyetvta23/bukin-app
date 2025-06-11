@@ -19,8 +19,8 @@ const BookingForm = ({ room }) => {
   }, [state]);
 
   return (
-    <div className='mt-6'>
-      <h2 className='text-xl font-bold'>Book this Room</h2>
+    <div className='mt-6 p-5 text-gray-900'>
+      <h2 className='text-xl text-center font-bold'>Book this Room</h2>
       <form action={formAction} className='mt-4'>
         <input type='hidden' name='room_id' value={room.$id} />
         <div className='grid grid-cols-1 sm:grid-cols-2 gap-6'>

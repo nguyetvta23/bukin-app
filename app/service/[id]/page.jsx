@@ -4,8 +4,12 @@ import getService from "@/app/actions/getService";
 import Heading from "@/components/Heading";
 import BookingForm from "@/components/BookingForm";
 import Image from "next/image";
+import filterAvaiableTime from "@/app/actions/filterAvaiableTime"
+
 const ServicePage =async ({ params }) => {
   const { id } = await params;
+
+  // console.log(slots);
   const service = await getService(id)
   const bucketID = process.env.NEXT_PUBLIC_APPWRITE_SERVICE_STORAGE_BUCKET;
   const projectID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT;
@@ -17,6 +21,9 @@ const ServicePage =async ({ params }) => {
       <div className="text-center mt-10 text-red-600">Service not found</div>
     );
   }
+  // const slots = await filterAvaiableTime(service.$id);
+  const slots = await filterAvaiableTime(service.$id);
+  console.log(slots)
   return (
     <section className="w-full mx-auto py-10 bg-gray-50 dark:bg-gray-900 dark:text-white">
       <Heading title={service.name} />
@@ -30,16 +37,28 @@ const ServicePage =async ({ params }) => {
             alt="billboard image"
           />
 
-          <div className="md:w-[50%] w-full bg-gray-100 dark:bg-gray-900 dark:text-gray-400 md:p-4 p-0 rounded-md">
+          <div className="md:w-[50%] w-full bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-400 md:p-4 p-0 rounded-md">
             <h2 className="text-3xl font-semibold text-gray-900 dark:text-white">
               {service.name}
             </h2>
             <p className="text-md mt-4">{service.description}</p>
             <div className="mt-4 flex items-center gap-2">
-              <span className="inline-block bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded-md ring-1 ring-blue-300">
-                🕒 {service.availability}
-              </span>
-              <span className="inline-block bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded-md ring-1 ring-green-300">
+              {slots.length >0 ? (
+                slots.map((slot) => {
+                  return(
+                  <span className="inline-block bg-red-100 text-blue-800 text-xs font-medium px-2 py-1 rounded-md ring-1 ring-blue-300">
+                ❌ {slot.check_in} - {slot.check_out}
+                  </span>)
+                })
+              ): (
+                <span className="inline-block bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded-md ring-1 ring-blue-300">
+                🕒 Avaiable all time
+                </span>
+              )}
+              
+            </div>
+            <div className="mt-4 flex items-center gap-2">
+            <span className="inline-block bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded-md ring-1 ring-green-300">
                 💵 ${service.price_per_hour}/hour
               </span>
             </div>

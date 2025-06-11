@@ -29,13 +29,13 @@ const BookedServiceCard = ({ booking }) => {
   };
 
   return (
-    <div className='bg-white shadow rounded-lg p-4 mt-4 flex flex-col sm:flex-row justify-between items-start sm:items-center'>
+    <div className='bg-white shadow rounded-lg p-4 mt-4 flex flex-col sm:flex-row justify-between items-start sm:items-center text-gray-900'>
       <div>
         <h4 className='text-lg font-semibold'>{room.name}</h4>
-        <p className='text-sm text-gray-600'>
+        <p className='text-sm '>
           <strong>Check In:</strong> {formatDate(booking.check_in)}
         </p>
-        <p className='text-sm text-gray-600'>
+        <p className='text-sm '>
           <strong>Check Out:</strong> {formatDate(booking.check_out)}
         </p>
       </div>

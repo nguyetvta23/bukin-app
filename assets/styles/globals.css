@@ -1,10 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --button-primary-color: oklch(39.8% 0.07 227.392);
-  --button-primary-hover: oklch(30.2% 0.056 229.695);
+  --background: #E9F2DF;
+  --foreground: oklch(21% 0.034 264.665);
+  --background-layout: #19260F;
+  --background-second: #465938;
+  --background-card: #9EA697;
+  --button-primary-color: #19260F;
+  --button-primary-hover: #465938;
   --button-danger-hover: oklch(44.4% 0.177 26.899);
   --button-danger-color: oklch(57.7% 0.245 27.325)
 }
@@ -18,7 +21,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #234015;
     --foreground: #ededed;
   }
 }
@@ -39,4 +42,13 @@ body {
 }
 .btn-danger:hover{
   background-color: var(--button-danger-hover);
+ }
+ .bg-primary{
+  background-color: var(--background-layout);
+ }
+ .bg-secondary{
+  background-color: var(--background-second);
+ }
+ .bg-card{
+  background-color: var(--background-card);
  }

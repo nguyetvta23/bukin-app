@@ -9,7 +9,7 @@ import checkAuth from './checkAuth';
 async function cancelBooking(bookingId) {
   const sessionCookie = cookies().get('appwrite-session');
   if (!sessionCookie) {
-    redirect('/login');
+    redirect('/signin');
   }
 
   try {
