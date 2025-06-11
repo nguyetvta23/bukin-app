@@ -1,8 +1,29 @@
-import Image from 'next/image';
-import logo from '@/assets/images/logo.avif';
-import {FaSignInAlt,FaSignOutAlt, FaUser} from 'react-icons/fa'
-import Link from 'next/link';
+"use client";
+import Image from "next/image";
+import { useState, useEffect } from "react";
+import logo from "@/assets/images/logo.avif";
+import { FaSignInAlt, FaSignOutAlt, FaUser } from "react-icons/fa";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import destroySession from "@/app/actions/destroySession";
+import { toast } from "react-toastify";
+import checkAuth from "@/app/actions/checkAuth";
+import { useAuth } from "@/context/authContext";
 const Header = () => {
+  const router = useRouter();
+
+  const { isAuthenticated, setIsAuthenticated } = useAuth();
+
+  const handleLogout = async () => {
+    const { success, error } = await destroySession();
+
+    if (success) {
+      setIsAuthenticated(false);
+      router.push("/login");
+    } else {
+      toast.error(error);
+    }
+  };
   return (
     <>
       <nav className="bg-gray-800">
@@ -10,63 +31,97 @@ const Header = () => {
           <div className="relative flex h-16 items-center justify-between">
             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
               <div className="flex shrink-0 items-center">
-                <Image
-                  className="h-8 w-auto"
-                  src= {logo}
-                  alt="Your Company"
-                  priority = {true}
-                />
+                <Link href={"/"}>
+                  <Image
+                    className="h-8 w-auto"
+                    src={logo}
+                    alt="Your Company"
+                    priority={true}
+                  />
+                </Link>
               </div>
               <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">
                   <Link
                     href={`/`}
-                    className="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
-                    aria-current="page"
-                  >
-                    My rooms
-                  </Link>
-                  <Link
-                    href="#"
                     className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
                   >
-                    Rooms
+                    Services
                   </Link>
-                  <Link
+                  {/* <Link
                     href="#"
                     className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
                   >
                     Booking
-                  </Link>
-                  <Link
-                    href="#"
-                    className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                  >
-                    Add room
-                  </Link>
+                  </Link> */}
+                  {isAuthenticated && (
+                    <>
+                      <Link
+                        href={'/service/add'}
+                        className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                      >
+                        Add room
+                      </Link>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
             <div className="absolute inset-y-2 right-0 flex gap-2 items-center pr-4 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              <button
-                type="button"
-                className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden"
-              >
-                <FaSignInAlt/>
-              </button>
-              <button
-                type="button"
-                className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden"
-              >
-               <FaUser />
-              </button>
-              <button
-                type="button"
-                className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden"
-              >
-               <FaSignOutAlt />
-              </button>
-{/* 
+              {/* <Link href={"/signup"}>
+                <button
+                  type="button"
+                  className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden"
+                >
+                  <FaSignInAlt />
+                </button>
+              </Link> */}
+              {!isAuthenticated && (
+                <>
+                  <Link href={`/signin`}>
+                    <button
+                      type="button"
+                      className="relative rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white "
+                    >
+                      <FaUser />
+                    </button>
+                  </Link>
+                </>
+              )}
+              {isAuthenticated && (
+                <>
+                  <Link
+                    href={`/my-rooms`}
+                    className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                    aria-current="page"
+                  >
+                    My rooms
+                  </Link>
+                </>
+              )}
+              {isAuthenticated && (
+                <>
+                  <Link
+                    href={`/bookings`}
+                    className="rounded-md rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                    aria-current="page"
+                  >
+                    Bookings
+                  </Link>
+                </>
+              )}
+              {isAuthenticated && (
+                <>
+                  <button
+                    onClick={handleLogout}
+                    type="button"
+                    className="relative rounded-full rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
+                    <FaSignOutAlt />
+                  </button>
+                </>
+              )}
+              {/* 
               <div className="relative ml-3">
                 <div>
                   <button

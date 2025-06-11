@@ -1,140 +1,100 @@
-const BookingForm = () => {
+'use client';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { useActionState } from 'react';
+import { toast } from 'react-toastify';
+import bookService from '@/app/actions/bookService';
+
+const BookingForm = ({ room }) => {
+  const [state, formAction] = useActionState(bookService, {});
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (state.error) toast.error(state.error);
+    if (state.success) {
+      toast.success('Room has been booked!');
+      router.push('/bookings');
+    }
+  }, [state]);
+
   return (
-    <div className="flex items-center justify-center p-12">
-      <div className="mx-auto w-full max-w-[550px] bg-slate-200 p-8 rounded-2xl">
-        <p className="text-center mb-5 text-3xl font-bold">Booking now</p>
-        <form action="https://formbold.com/s/FORM_ID" method="POST">
-          <div className="-mx-3 flex flex-wrap">
-            <div className="w-full px-3 sm:w-1/2">
-              <div className="mb-5">
-                <label
-                  for="fName"
-                  className="mb-3 block text-base font-medium text-[#07074D]"
-                >
-                  Fullname
-                </label>
-                <input
-                  type="text"
-                  name="fName"
-                  id="fName"
-                  placeholder="First Name"
-                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                />
-              </div>
-            </div>
-            <div className="w-full px-3 sm:w-1/2">
-              <div className="mb-5">
-                <label
-                  htmlFor="lName"
-                  className="mb-3 block text-base font-medium text-[#07074D]"
-                >
-                  Phone number
-                </label>
-                <input
-                  type="text"
-                  name="lName"
-                  id="lName"
-                  placeholder="093xxx"
-                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="mb-5">
+    <div className='mt-6'>
+      <h2 className='text-xl font-bold'>Book this Room</h2>
+      <form action={formAction} className='mt-4'>
+        <input type='hidden' name='room_id' value={room.$id} />
+        <div className='grid grid-cols-1 sm:grid-cols-2 gap-6'>
+          <div>
             <label
-              for="guest"
-              className="mb-3 block text-base font-medium text-[#07074D]"
+              htmlFor='check_in_date'
+              className='block text-sm font-medium text-gray-700'
             >
-              How many guest are you bringing?
+              Check-In Date
             </label>
             <input
-              type="number"
-              name="guest"
-              id="guest"
-              placeholder="5"
-              min="0"
-              className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+              type='date'
+              id='check_in_date'
+              name='check_in_date'
+              className='mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+              required
             />
           </div>
-
-          <div className="-mx-3 flex flex-wrap">
-            <div className="w-full px-3 sm:w-1/2">
-              <div className="mb-5">
-                <label
-                  for="date"
-                  className="mb-3 block text-base font-medium text-[#07074D]"
-                >
-                  Check in
-                </label>
-                <input
-                  type="date"
-                  name="date"
-                  id="date"
-                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                />
-              </div>
-            </div>
-            <div className="w-full px-3 sm:w-1/2">
-              <div className="mb-5">
-                <label
-                  for="time"
-                  className="mb-3 block text-base font-medium text-[#07074D]"
-                >
-                  Check-out
-                </label>
-                <input
-                  type="date"
-                  name="check-out"
-                  id="time"
-                  className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="mb-5">
-            <label className="mb-3 block text-base font-medium text-[#07074D]">
-              Are you coming to the event?
-            </label>
-            <div className="flex items-center space-x-6">
-              <div className="flex items-center">
-                <input
-                  type="radio"
-                  name="radio1"
-                  id="radioButton1"
-                  className="h-5 w-5"
-                />
-                <label
-                  for="radioButton1"
-                  className="pl-3 text-base font-medium text-[#07074D]"
-                >
-                  Yes
-                </label>
-              </div>
-              <div className="flex items-center">
-                <input
-                  type="radio"
-                  name="radio1"
-                  id="radioButton2"
-                  className="h-5 w-5"
-                />
-                <label
-                  for="radioButton2"
-                  className="pl-3 text-base font-medium text-[#07074D]"
-                >
-                  No
-                </label>
-              </div>
-            </div>
-          </div>
-
           <div>
-            <button className="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
-              Submit
-            </button>
+            <label
+              htmlFor='check_in_time'
+              className='block text-sm font-medium text-gray-700'
+            >
+              Check-In Time
+            </label>
+            <input
+              type='time'
+              id='check_in_time'
+              name='check_in_time'
+              className='mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+              required
+            />
           </div>
-        </form>
-      </div>
+          <div>
+            <label
+              htmlFor='check_out_date'
+              className='block text-sm font-medium text-gray-700'
+            >
+              Check-Out Date
+            </label>
+            <input
+              type='date'
+              id='check_out_date'
+              name='check_out_date'
+              className='mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+              required
+            />
+          </div>
+          <div>
+            <label
+              htmlFor='check_out_time'
+              className='block text-sm font-medium text-gray-700'
+            >
+              Check-Out Time
+            </label>
+            <input
+              type='time'
+              id='check_out_time'
+              name='check_out_time'
+              className='mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+              required
+            />
+          </div>
+        </div>
+
+        <div className='mt-6'>
+          <button
+            type='submit'
+            className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white  focus:outline-none  btn-primary'
+          >
+            Book Room
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

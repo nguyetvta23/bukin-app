@@ -3,21 +3,22 @@ import {createAdminClient} from "@/config/Appwrite"
 import { revalidatePath } from "next/cache";
 import { redirect   } from "next/navigation";
 
-async function getAllRooms(){
+async function getService(id){
     try {
     const {databases} = await createAdminClient();
-    const {documents: services} = await databases.listDocuments(
+    const service = await databases.getDocument(
         process.env.NEXT_PUBLIC_APPWRITE_DATABASE, // database ID
-        process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_SERVICES // collection ID
+        process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_SERVICES,
+        id
       );
     //   console.log(databases)
     // Revalidate the cache for this path
     // revalidatePath('/', 'layout');    
-    return services;
+    return service;
         
     } catch (error) {
-        console.log('Failed to load thi');
+        console.log('Failed to load this page');
         redirect('/error')
     }
 }
-export default getAllRooms;
+export default getService;

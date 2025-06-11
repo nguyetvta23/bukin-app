@@ -1,13 +1,16 @@
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
-import data from "@/data/services.json";
+import getService from "@/app/actions/getService";
 import Heading from "@/components/Heading";
 import BookingForm from "@/components/BookingForm";
 import Image from "next/image";
-const ServicePage = ({ params }) => {
-  const { id } = params;
-  const service = data.find((service) => service.$id === id);
-
+const ServicePage =async ({ params }) => {
+  const { id } = await params;
+  const service = await getService(id)
+  const bucketID = process.env.NEXT_PUBLIC_APPWRITE_SERVICE_STORAGE_BUCKET;
+  const projectID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT;
+  const imgURL = `https://fra.cloud.appwrite.io/v1/storage/buckets/${bucketID}/files/${service.image}/view?project=${projectID}`;
+    const imageSrc = <service className="image"></service> ? imgURL : '/images/no-image.png';
   if (!service) {
     console.log(service);
     return (
@@ -21,7 +24,7 @@ const ServicePage = ({ params }) => {
         <div className="xl:w-[80%] sm:w-[85%] w-[90%] mx-auto flex md:flex-row flex-col lg:gap-4 gap-2 justify-center lg:items-stretch md:items-center mt-4">
           <Image
             className="md:w-[50%] w-full md:rounded-t-lg rounded-sm"
-            src={`/images/${service.image}`}
+            src={imageSrc}
             width={500}
             height={500}
             alt="billboard image"
@@ -58,19 +61,19 @@ const ServicePage = ({ params }) => {
           </div>
         </div>
       </div>
-      <BookingForm/>
-      <div className="flex justify-center mt-6">
+      <BookingForm room={service}/>
+      {/* <div className="flex justify-center mt-6">
         <div className="flex justify-center gap-4 mt-6">
-          <Link href={`/`}>
-            <button className="px-10 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700">
+        <Link href={`/bookings`}>
+            <button className="px-10 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-500">
               <div className="flex items-center gap-2">
                 <FaArrowLeft />
-                Back
+                Book
               </div>
             </button>
           </Link>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };

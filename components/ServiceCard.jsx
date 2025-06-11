@@ -3,7 +3,10 @@ import { FaSignOutAlt } from "react-icons/fa";
 import Link from "next/link"
 
 const ServiceCard = ({ room }) => {
-  const imgUrl = "";
+  const bucketID = process.env.NEXT_PUBLIC_APPWRITE_SERVICE_STORAGE_BUCKET;
+  const projectID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT;
+  const imgURL = `https://fra.cloud.appwrite.io/v1/storage/buckets/${bucketID}/files/${room.image}/view?project=${projectID}`;
+    const imageSrc = room.image ? imgURL : '/images/no-image.png';
   return (
     <div className="basis-1/3">
       <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
@@ -11,7 +14,7 @@ const ServiceCard = ({ room }) => {
           <div className="relative w-full h-50">
             <Image
               className="w-full sm:w-32 sm:h-32 mb-3 sm:mb-0 rounded-t-lg"
-              src={`/images/${room.image}`}
+              src={imageSrc}
               // width={100}
               // height={100}
               fill={true}
@@ -35,14 +38,14 @@ const ServiceCard = ({ room }) => {
             <span className="inline-block bg-green-100 text-green-800 text-sm font-semibold px-2 py-1 rounded-md ring-1 ring-green-300">
               ${room.price_per_hour}/hour
             </span>
-            <span className="inline-block bg-red-100 text-green-800 text-sm font-semibold px-2 py-1 rounded-md ring-1 ring-red-300">
+            {/* <span className="inline-block bg-red-100 text-green-800 text-sm font-semibold px-2 py-1 rounded-md ring-1 ring-red-300">
               ${room.availability}
-            </span>
+            </span> */}
             
           </div>
           <Link
-            href={`/services/${room.$id}`}
-            className="inline-flex gap-3 items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            href={`/service/${room.$id}`}
+            className="inline-flex gap-3 items-center px-3 py-2 text-sm font-medium text-center text-white btn-primary rounded-lg"
           >
             View
             <FaSignOutAlt />

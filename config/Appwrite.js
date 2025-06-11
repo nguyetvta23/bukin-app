@@ -19,12 +19,12 @@ const createAdminClient = async ()=>{
 }
 }
 //  Session Client
-const createSessionClient = async ()=>{
-    const sessionClient = new Client()
+const createSessionClient = async (session)=>{
+    const client = new Client()
     .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT) // Your API Endpoint
     .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT);            // Your project ID
 
-    const session = req.cookies.session; // Get the session cookie from the request
+    // const session = cookies().session; // Get the session cookie from the request
     if (session) {
         client.setSession(session);
     }
@@ -32,11 +32,13 @@ const createSessionClient = async ()=>{
         get account(){
             return new Account(client);
         },
-        get database(){
+        get databases(){
             return new Databases(client);
         },
 
     }
 }
+
+    
 
 export {createAdminClient, createSessionClient}
