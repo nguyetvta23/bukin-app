@@ -12,7 +12,7 @@ const MyServiceCard= ({ room }) => {
     <tr className="border-b text-xs md:text-sm text-center text-gray-800">
     <td className="p-2 md:p-4">{room.name}</td>
     <td className="p-2 md:p-4">{room.price_per_hour} $</td>
-    <td className="p-2 md:p-4">{room.availability}</td>
+    <td className="p-2 md:p-4">{room.sqft} m <sup>2</sup></td>
     <td className="relative p-2 md:p-4 flex justify-center space-x-2">
       <Link href={`/service/${room.$id}`}>
       <button className="btn-primary text-white px-3 py-1 rounded-md text-xs md:text-sm">View</button>

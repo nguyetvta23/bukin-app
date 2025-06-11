@@ -24,7 +24,7 @@ const MyServices = async () => {
                 </th>
                 <th className="p-0">
                   <span className="block py-2 px-3 border-r border-gray-300">
-                    Time
+                  The Area
                   </span>
                 </th>
                 <th className="p-4 text-xs md:text-sm">Actions</th>

@@ -12,7 +12,7 @@ const SignUpPage = () => {
   useEffect(()=> {
     if(state.error) toast.error(state.error);
     if(state.success) {
-    toast.error('Đăng ký tài khoản thành công!')
+    toast.success('Đăng ký tài khoản thành công!')
     router.push('/signin')}
   }, [state])
 
