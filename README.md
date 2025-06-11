@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bukin App 📚
 
-## Getting Started
+**Bukin App** is a mini booking application that allows users to easily view availability, make reservations, and manage their booking history. It is designed with a clean user interface and focuses on user convenience and responsiveness.
 
-First, run the development server:
+
+**Live Demo:** [https://bukin-app.vercel.app/](https://bukin-app.vercel.app/)
+
+
+## 🚀 Features
+
+- 🧾 User registration and login
+- 📅 Real-time availability calendar
+- 🗃️ Booking history management
+- 🔒 Role-based access control (user/admin)
+- 🌐 Fully responsive UI
+
+## 🛠️ Tech Stack
+
+- **Front-end:** React, Tailwind CSS, NodeJs
+- **Databases:** [Appwrite](https://appwrite.io) (Auth, Database, Functions)
+- **Authentication:** JWT-based
+- **Others:** Luxon (date/time), dotenv
+
+## 📦 Getting Started
+
+### Prerequisites
+
+- Node.js >= 18.x
+- npm or yarn
+- Create Appwrite account
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/nguyetvta23/bukin-app.git
+cd bukin-app
+
+# Install dependencies
+npm install
+
+# Copy and edit environment variables
+cp .env.example .env
+
+# Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 📚 Documentation & Resources
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Learn Next.js](https://nextjs.org/learn)
+- [Vercel Deployment Guide](https://vercel.com/docs)
+- [Appwrite] (https://appwrite.io/docs)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 💡 Contributing
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Contributions are welcome! Please open a Pull Request or Issue if you'd like to help improve this project.
 
-## Learn More
+## 📄 License
 
-To learn more about Next.js, take a look at the following resources:
+MIT License © 2025 nguyetvta23
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+> Created by [nguyetvta23](https://github.com/nguyetvta23)
